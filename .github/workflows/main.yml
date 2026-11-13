@@ -2,6 +2,10 @@ name: PhpStorm Stubs Tests
 
 on: [push, pull_request, workflow_dispatch]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 # The validator framework no longer runs PHPUnit on each PHP runtime.
 # Per-version reflection is captured offline into the committed
 # tests/cache/Reflection<version>.json files (see tests/run-all-reflection-parsers.sh),
